@@ -1,15 +1,15 @@
 <?php
-$queryUser = mysqli_query($connection, "SELECT * FROM user ORDER BY id DESC");
+$queryCategory = mysqli_query($connection, "SELECT * FROM category_books ORDER BY id DESC");
 ?>
 <div class="mt-5 container">
   <div class="row">
     <div class="col-md-12">
       <fieldset class="border border-black border-2 p-3">
-        <legend class="float none w-auto px-3">Data User</legend>
+        <legend class="float none w-auto px-3">Data Category</legend>
         </br>
         </br>
         <div class="button-action">
-          <a href="?pg=add-user" class="btn btn-primary">Tambah</a>
+          <a href="?pg=add-category" class="btn btn-primary">Tambah</a>
           <!-- <a href="" class="btn btn-warning">Recycle</a> -->
         </div>
         <br>
@@ -18,26 +18,20 @@ $queryUser = mysqli_query($connection, "SELECT * FROM user ORDER BY id DESC");
             <thead>
               <tr>
                 <th>No</th>
-                <th>Name</th>
-                <th>Telepon</th>
-                <th>Email</th>
-                <th>Jenis Kelamin</th>
+                <th>Name Kategori</th>
                 <th>Settings</th>
               </tr>
             </thead>
             <tbody>
               <?php
-                            $no = 1;
-                            while ($row = mysqli_fetch_assoc($queryUser)) {
-                            ?>
+              $no = 1;
+              while ($rowCategory = mysqli_fetch_assoc($queryCategory)) {
+              ?>
               <tr>
                 <td><?php echo $no++ ?></td>
-                <td><?php echo $row['name'] ?></td>
-                <td><?php echo $row['phone_number'] ?></td>
-                <td><?php echo $row['email'] ?></td>
-                <td><?php echo $row['gender'] ?></td>
+                <td><?php echo $rowCategory['category_name'] ?></td>
                 <td>
-                  <a href="?pg=add-user&edit=<?php echo $row['id'] ?>">
+                  <a href="?pg=add-category&edit=<?php echo $rowCategory['id'] ?>">
                     <button class="btn btn-outline-success">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-pen" viewBox="0 0 16 16">
@@ -47,7 +41,7 @@ $queryUser = mysqli_query($connection, "SELECT * FROM user ORDER BY id DESC");
                     </button>
                   </a>
                   <a onclick="return confirm ('Apakah anda yakin akan menghapus data ini?')"
-                    href="?pg=add-user& =<?php echo $row['id'] ?>">
+                    href="?pg=add-category&delete=<?php echo $rowCategory['id'] ?>">
                     <button class="btn btn-outline-danger">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-trash" viewBox="0 0 16 16">
