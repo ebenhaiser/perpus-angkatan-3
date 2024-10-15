@@ -1,5 +1,5 @@
 <?php
-$queryCategory = mysqli_query($connection, "SELECT * FROM category_books ORDER BY id DESC");
+$queryCategory = mysqli_query($connection, "SELECT * FROM categories ORDER BY id DESC");
 ?>
 <div class="mt-5 container">
   <div class="row">

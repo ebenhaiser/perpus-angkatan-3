@@ -19,6 +19,9 @@
           <li class="nav-item <?php echo isset($_GET['book']) ? ' fw-bold' : '' ?>">
             <a class="nav-link" href="?pg=book">Buku</a>
           </li>
+          <li class="nav-item <?php echo isset($_GET['book']) ? ' fw-bold' : '' ?>">
+            <a class="nav-link" href="?pg=level">Level</a>
+          </li>
         </ul>
         <!-- <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

@@ -1,16 +1,15 @@
 <?php
-$queryBooks = mysqli_query($connection, "SELECT categories.category_name, books.* 
-FROM books LEFT JOIN categories ON categories.id = books.id_category ORDER BY id DESC");
+$queryLevel = mysqli_query($connection, "SELECT * FROM levels ORDER BY id DESC");
 ?>
 <div class="mt-5 container">
   <div class="row">
     <div class="col-md-12">
       <fieldset class="border border-black border-2 p-3">
-        <legend class="float none w-auto px-3">Data Buku</legend>
+        <legend class="float none w-auto px-3">Data Level</legend>
         </br>
         </br>
         <div class="button-action">
-          <a href="?pg=add-book" class="btn btn-primary">Tambah</a>
+          <a href="?pg=add-level" class="btn btn-primary">Tambah</a>
           <!-- <a href="" class="btn btn-warning">Recycle</a> -->
         </div>
         <br>
@@ -19,28 +18,20 @@ FROM books LEFT JOIN categories ON categories.id = books.id_category ORDER BY id
             <thead>
               <tr>
                 <th>No</th>
-                <th>Kategori</th>
-                <th>Judul</th>
-                <th>Penerbit</th>
-                <th>Tahun Terbit</th>
-                <th>Pengarang</th>
+                <th>Nama Level</th>
                 <th>Settings</th>
               </tr>
             </thead>
             <tbody>
               <?php
-                $no = 1;
-                while ($rowBooks = mysqli_fetch_assoc($queryBooks)) {
-                ?>
+              $no = 1;
+              while ($rowLevel = mysqli_fetch_assoc($queryLevel)) {
+              ?>
               <tr>
                 <td><?php echo $no++ ?></td>
-                <td><?php echo $rowBooks['category_name'] ?></td>
-                <td><?php echo $rowBooks['title'] ?></td>
-                <td><?php echo $rowBooks['publisher'] ?></td>
-                <td><?php echo $rowBooks['year_of_publication'] ?></td>
-                <td><?php echo $rowBooks['author'] ?></td>
+                <td><?php echo $rowLevel['level_name'] ?></td>
                 <td>
-                  <a href="?pg=add-book&edit=<?php echo $rowBooks['id'] ?>">
+                  <a href="?pg=add-level&edit=<?php echo $rowLevel['id'] ?>">
                     <button class="btn btn-outline-success">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-pen" viewBox="0 0 16 16">
@@ -50,7 +41,7 @@ FROM books LEFT JOIN categories ON categories.id = books.id_category ORDER BY id
                     </button>
                   </a>
                   <a onclick="return confirm ('Apakah anda yakin akan menghapus data ini?')"
-                    href="?pg=add-book&delete=<?php echo $rowBooks['id'] ?>">
+                    href="?pg=add-level&delete=<?php echo $rowLevel['id'] ?>">
                     <button class="btn btn-outline-danger">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-trash" viewBox="0 0 16 16">
