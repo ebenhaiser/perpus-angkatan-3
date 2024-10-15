@@ -2,7 +2,7 @@
 // BUAT EDIT USER
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];
-    $queryEdit = mysqli_query($connection, "SELECT * FROM user WHERE id='$id'");
+    $queryEdit = mysqli_query($connection, "SELECT * FROM users WHERE id='$id'");
     $rowEdit = mysqli_fetch_assoc($queryEdit);
 };
 
@@ -16,7 +16,7 @@ if (isset($_POST['edit'])) {
 
     $update = mysqli_query(
         $connection,
-        "UPDATE user SET level='$level', name='$name', email='$email', gender='$gender', phone_number='$phone_number' WHERE id='$id'"
+        "UPDATE users SET level='$level', name='$name', email='$email', gender='$gender', phone_number='$phone_number' WHERE id='$id'"
     );
     header("location: ?pg=user");
 

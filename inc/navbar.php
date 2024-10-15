@@ -14,10 +14,10 @@
             <a class="nav-link" href="?pg=user">Manage Accounts</a>
           </li>
           <li class="nav-item <?php echo isset($_GET['user']) ? ' fw-bold' : '' ?>">
-            <a class="nav-link" href="?pg=category">Category</a>
+            <a class="nav-link" href="?pg=category">Kategori</a>
           </li>
           <li class="nav-item <?php echo isset($_GET['book']) ? ' fw-bold' : '' ?>">
-            <a class="nav-link" href="?pg=book">Manage Books</a>
+            <a class="nav-link" href="?pg=book">Buku</a>
           </li>
         </ul>
         <!-- <form class="d-flex" role="search">

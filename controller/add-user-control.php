@@ -10,7 +10,7 @@ if (isset($_POST['add'])) {
 
     $queryInsert = mysqli_query(
         $connection,
-        "INSERT INTO user (level, name, email, gender, phone_number) VALUES ('$level', '$name',  '$email', '$gender', '$phone_number')"
+        "INSERT INTO users (level, name, email, gender, phone_number) VALUES ('$level', '$name',  '$email', '$gender', '$phone_number')"
     );
     header("location: ?pg=user");
 };

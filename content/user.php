@@ -1,5 +1,5 @@
 <?php
-$queryUser = mysqli_query($connection, "SELECT * FROM user ORDER BY id DESC");
+$queryUser = mysqli_query($connection, "SELECT * FROM users ORDER BY id DESC");
 ?>
 <div class="mt-5 container">
   <div class="row">
@@ -47,7 +47,7 @@ $queryUser = mysqli_query($connection, "SELECT * FROM user ORDER BY id DESC");
                     </button>
                   </a>
                   <a onclick="return confirm ('Apakah anda yakin akan menghapus data ini?')"
-                    href="?pg=add-user& =<?php echo $row['id'] ?>">
+                    href="?pg=add-user&delete=<?php echo $row['id'] ?>">
                     <button class="btn btn-outline-danger">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-trash" viewBox="0 0 16 16">
