@@ -5,9 +5,7 @@ $queryUser = mysqli_query($connection, "SELECT * FROM users ORDER BY id DESC");
   <div class="row">
     <div class="col-md-12">
       <fieldset class="border border-black border-2 p-3">
-        <legend class="float none w-auto px-3">Data User</legend>
-        </br>
-        </br>
+        <legend class="float-none w-auto px-3">Data User</legend>
         <div class="button-action">
           <a href="?pg=add-user" class="btn btn-primary">Tambah</a>
           <!-- <a href="" class="btn btn-warning">Recycle</a> -->

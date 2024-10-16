@@ -47,18 +47,20 @@ if (isset($_POST['edit'])) {
     <div class="col-sm-5 mx-auto mt-5">
       <div class="card shadow">
         <div class="card-body">
-          <h3 class="card-title text-center"><?php echo isset($_GET['edit']) ? 'Atur' : 'Tambah' ?> Level
-          </h3>
-          <form class="" action="" method="post">
-            <div class="form-group mb-3">
-              <label for="" class="form-label">Name Level : </label>
-              <input type="text" class="form-control" name="level_name" placeholder="Masukkan nama level"
-                value="<?php echo isset($_GET['edit']) ? $rowEdit['level_name'] : '' ?>">
-            </div>
-            <button type="submit" class="btn btn-primary" name="<?php echo isset($_GET['edit']) ? 'edit' : 'add' ?>">
-              <?php echo isset($_GET['edit']) ? 'Atur' : 'Tambah' ?>
-            </button>
-          </form>
+          <fieldset class="border border-black border-2 p-3">
+            <legend class="float-none w-auto px-3"><?php echo isset($_GET['edit']) ? 'Atur' : 'Tambah' ?> Level
+            </legend>
+            <form class="" action="" method="post">
+              <div class="form-group mb-3">
+                <label for="" class="form-label">Name Level : </label>
+                <input type="text" class="form-control" name="level_name" placeholder="Masukkan nama level"
+                  value="<?php echo isset($_GET['edit']) ? $rowEdit['level_name'] : '' ?>">
+              </div>
+              <button type="submit" class="btn btn-primary" name="<?php echo isset($_GET['edit']) ? 'edit' : 'add' ?>">
+                <?php echo isset($_GET['edit']) ? 'Atur' : 'Tambah' ?>
+              </button>
+            </form>
+          </fieldset>
         </div>
       </div>
     </div>

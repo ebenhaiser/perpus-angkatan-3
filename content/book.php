@@ -6,9 +6,7 @@ FROM books LEFT JOIN categories ON categories.id = books.id_category ORDER BY id
   <div class="row">
     <div class="col-md-12">
       <fieldset class="border border-black border-2 p-3">
-        <legend class="float none w-auto px-3">Data Buku</legend>
-        </br>
-        </br>
+        <legend class="float-none w-auto px-3">Data Buku</legend>
         <div class="button-action">
           <a href="?pg=add-book" class="btn btn-primary">Tambah</a>
           <!-- <a href="" class="btn btn-warning">Recycle</a> -->

@@ -61,45 +61,47 @@ $queryCategory = mysqli_query($connection, "SELECT * FROM categories");
     <div class="col-sm-5 mx-auto mt-5">
       <div class="card shadow">
         <div class="card-body">
-          <h3 class="card-title text-center"><?php echo isset($_GET['edit']) ? 'Atur' : 'Tambah' ?> Buku
-          </h3>
-          <form action="" method="post">
-            <div class="form-group mb-3">
-              <label for="" class="form-label">Kategori : </label>
-              <select name="id_category" class="form-control" id="">
-                <option value="">Pilih kategori</option>
-                <?php while($rowCategory = mysqli_fetch_assoc($queryCategory)): ?>
-                <option
-                  <?php echo isset($_GET['edit']) ? ($rowCategory['id'] == $rowEdit['id_category'] ? 'selected' : '') : '' ?>
-                  value="<?php echo $rowCategory['id'] ?>">
-                  <?php echo $rowCategory['category_name'] ?></option>
-                <?php endwhile ?>
-              </select>
-            </div>
-            <div class="form-group mb-3">
-              <label for="" class="form-label">Judul : </label>
-              <input type="text" class="form-control" name="title" placeholder="Masukkan kategori"
-                value="<?php echo isset($_GET['edit']) ? $rowEdit['title'] : '' ?>">
-            </div>
-            <div class="form-group mb-3">
-              <label for="" class="form-label">Penerbit : </label>
-              <input type="text" class="form-control" name="publisher" placeholder="Masukkan penerbit"
-                value="<?php echo isset($_GET['edit']) ? $rowEdit['publisher'] : '' ?>">
-            </div>
-            <div class="form-group mb-3">
-              <label for="" class="form-label">Tahun Terbit : </label>
-              <input type="text" class="form-control" name="year_of_publication" placeholder="Masukkan tahum terbit"
-                value="<?php echo isset($_GET['edit']) ? $rowEdit['year_of_publication'] : '' ?>">
-            </div>
-            <div class="form-group mb-3">
-              <label for="" class="form-label">Penulis : </label>
-              <input type="text" class="form-control" name="author" placeholder="Masukkan penulis"
-                value="<?php echo isset($_GET['edit']) ? $rowEdit['author'] : '' ?>">
-            </div>
-            <button type="submit" class="btn btn-primary" name="<?php echo isset($_GET['edit']) ? 'edit' : 'add' ?>">
-              <?php echo isset($_GET['edit']) ? 'Atur' : 'Tambah' ?>
-            </button>
-          </form>
+          <fieldset class="border border-black border-2 p-3">
+            <legend class="float-none w-auto px-3"><?php echo isset($_GET['edit']) ? 'Atur' : 'Tambah' ?> Buku
+            </legend>
+            <form action="" method="post">
+              <div class="form-group mb-3">
+                <label for="" class="form-label">Kategori : </label>
+                <select name="id_category" class="form-control" id="">
+                  <option value="">Pilih kategori</option>
+                  <?php while($rowCategory = mysqli_fetch_assoc($queryCategory)): ?>
+                  <option
+                    <?php echo isset($_GET['edit']) ? ($rowCategory['id'] == $rowEdit['id_category'] ? 'selected' : '') : '' ?>
+                    value="<?php echo $rowCategory['id'] ?>">
+                    <?php echo $rowCategory['category_name'] ?></option>
+                  <?php endwhile ?>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label for="" class="form-label">Judul : </label>
+                <input type="text" class="form-control" name="title" placeholder="Masukkan kategori"
+                  value="<?php echo isset($_GET['edit']) ? $rowEdit['title'] : '' ?>">
+              </div>
+              <div class="form-group mb-3">
+                <label for="" class="form-label">Penerbit : </label>
+                <input type="text" class="form-control" name="publisher" placeholder="Masukkan penerbit"
+                  value="<?php echo isset($_GET['edit']) ? $rowEdit['publisher'] : '' ?>">
+              </div>
+              <div class="form-group mb-3">
+                <label for="" class="form-label">Tahun Terbit : </label>
+                <input type="text" class="form-control" name="year_of_publication" placeholder="Masukkan tahum terbit"
+                  value="<?php echo isset($_GET['edit']) ? $rowEdit['year_of_publication'] : '' ?>">
+              </div>
+              <div class="form-group mb-3">
+                <label for="" class="form-label">Penulis : </label>
+                <input type="text" class="form-control" name="author" placeholder="Masukkan penulis"
+                  value="<?php echo isset($_GET['edit']) ? $rowEdit['author'] : '' ?>">
+              </div>
+              <button type="submit" class="btn btn-primary" name="<?php echo isset($_GET['edit']) ? 'edit' : 'add' ?>">
+                <?php echo isset($_GET['edit']) ? 'Atur' : 'Tambah' ?>
+              </button>
+            </form>
+          </fieldset>
         </div>
       </div>
     </div>
