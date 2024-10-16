@@ -47,6 +47,7 @@ FROM books LEFT JOIN categories ON categories.id = books.id_category ORDER BY id
                       </svg>
                     </button>
                   </a>
+                  |
                   <a onclick="return confirm ('Apakah anda yakin akan menghapus data ini?')"
                     href="?pg=add-book&delete=<?php echo $rowBooks['id'] ?>">
                     <button class="btn btn-outline-danger">

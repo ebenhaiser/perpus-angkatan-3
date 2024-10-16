@@ -38,6 +38,7 @@ $queryLevel = mysqli_query($connection, "SELECT * FROM levels ORDER BY id DESC")
                       </svg>
                     </button>
                   </a>
+                  |
                   <a onclick="return confirm ('Apakah anda yakin akan menghapus data ini?')"
                     href="?pg=add-level&delete=<?php echo $rowLevel['id'] ?>">
                     <button class="btn btn-outline-danger">

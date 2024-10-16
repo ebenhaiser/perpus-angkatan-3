@@ -38,6 +38,7 @@ $queryCategory = mysqli_query($connection, "SELECT * FROM categories ORDER BY id
                       </svg>
                     </button>
                   </a>
+                  |
                   <a onclick="return confirm ('Apakah anda yakin akan menghapus data ini?')"
                     href="?pg=add-category&delete=<?php echo $rowCategory['id'] ?>">
                     <button class="btn btn-outline-danger">

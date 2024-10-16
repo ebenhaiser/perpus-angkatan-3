@@ -5,7 +5,7 @@ $queryMembers = mysqli_query($connection, "SELECT * FROM members ORDER BY id DES
   <div class="row">
     <div class="col-md-12">
       <fieldset class="border border-black border-2 p-3">
-        <legend class="float-none w-auto px-3">Data Buku</legend>
+        <legend class="float-none w-auto px-3">Data Anggota</legend>
         <div class="button-action">
           <a href="?pg=add-member" class="btn btn-primary">Tambah</a>
           <!-- <a href="" class="btn btn-warning">Recycle</a> -->
@@ -44,6 +44,7 @@ $queryMembers = mysqli_query($connection, "SELECT * FROM members ORDER BY id DES
                       </svg>
                     </button>
                   </a>
+                  |
                   <a onclick="return confirm ('Apakah anda yakin akan menghapus data ini?')"
                     href="?pg=add-member&delete=<?php echo $rowMembers['id'] ?>">
                     <button class="btn btn-outline-danger">

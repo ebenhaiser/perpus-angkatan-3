@@ -57,7 +57,7 @@ if (isset($_POST['edit'])) {
       <div class="card shadow">
         <div class="card-body">
           <fieldset class="border border-black border-2 p-3">
-            <legend class="float-none w-auto px-3"><?php echo isset($_GET['edit']) ? 'Atur' : 'Tambah' ?> User
+            <legend class="float-none w-auto px-3"><?php echo isset($_GET['edit']) ? 'Atur' : 'Tambah' ?> Anggota
             </legend>
             <form class="" action="" method="post">
               <div class="form-group mb-3">

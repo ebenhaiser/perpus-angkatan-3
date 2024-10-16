@@ -44,6 +44,7 @@ $queryUser = mysqli_query($connection, "SELECT * FROM users ORDER BY id DESC");
                       </svg>
                     </button>
                   </a>
+                  |
                   <a onclick="return confirm ('Apakah anda yakin akan menghapus data ini?')"
                     href="?pg=add-user&delete=<?php echo $row['id'] ?>">
                     <button class="btn btn-outline-danger">

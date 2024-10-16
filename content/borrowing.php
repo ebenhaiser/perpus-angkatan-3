@@ -47,6 +47,7 @@ FROM borrowing LEFT JOIN members ON members.id = borrowing.id_member ORDER BY id
                       </svg>
                     </button>
                   </a>
+                  |
                   <a onclick="return confirm ('Apakah anda yakin akan menghapus data ini?')"
                     href="?pg=add-borrowing&delete=<?php echo $rowBorrowing['id'] ?>">
                     <button class="btn btn-outline-danger">
