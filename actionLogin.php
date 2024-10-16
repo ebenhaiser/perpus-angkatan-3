@@ -8,7 +8,7 @@ $password = sha1($_POST['password']);
 
 $queryLogin = mysqli_query(
     $connection,
-    "SELECT * FROM user WHERE email='$email'"
+    "SELECT * FROM users WHERE email='$email'"
 );
 
 if (mysqli_num_rows($queryLogin) > 0) {

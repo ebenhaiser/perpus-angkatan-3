@@ -51,7 +51,7 @@ if (isset($_POST['edit'])) {
           </h3>
           <form class="" action="" method="post">
             <div class="form-group mb-3">
-              <label for="" class="form-label">Name Kategori : </label>
+              <label for="" class="form-label">Name Level : </label>
               <input type="text" class="form-control" name="level_name" placeholder="Masukkan nama level"
                 value="<?php echo isset($_GET['edit']) ? $rowEdit['level_name'] : '' ?>">
             </div>
