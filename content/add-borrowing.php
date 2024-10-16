@@ -56,9 +56,9 @@ $queryCategory = mysqli_query($connection, "SELECT * FROM members");
 
 ?>
 
-<div class="container">
+<div class="mt-5 container">
   <div class="row">
-    <div class="col-sm-5 mx-auto mt-5">
+    <div class="col-sm-12">
       <div class="card shadow">
         <div class="card-body">
           <h3 class="card-title text-center">
@@ -70,22 +70,46 @@ $queryCategory = mysqli_query($connection, "SELECT * FROM members");
               <div class="mb-3 row">
                 <div class="col-sm-4">
                   <div class="mb-3">
-                    <label for="">No Peminjaman</label>
+                    <label for="" class="form-label">No Peminjaman</label>
                     <input type="text" class="form-control" name="borrowing_number" value="" readonly>
                   </div>
                   <div class="mb-3">
-                    <label for="">Tanggal Peminjaman</label>
+                    <label for="" class="form-label">Tanggal Peminjaman</label>
                     <input type="date" class="form-control" name="borrowing_date" value="">
                   </div>
                 </div>
                 <div class="col-sm-4">
-                  <label for="" class="form-label">Nama Aggota</label>
-                  <select name="id_member" id="" class="form-control">
-                    <option value="">Pilih Anggota</option>
-                    <option value=""></option>
-                  </select>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Nama Aggota</label>
+                    <select name="id_member" id="" class="form-control">
+                      <option value="">Pilih Anggota</option>
+                      <option value=""></option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Tanggal Pengembalian</label>
+                    <input type="date" class="form-control" name="return_date" value="">
+                  </div>
                 </div>
               </div>
+              <div align="right" class="mb-3">
+                <button type="button" id="add-row" class="btn btn-primary">
+                  Tambah Row
+                </button>
+              </div>
+              <table id="table-add-borrowing" class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Judul Buku</th>
+                    <th>Settings</th>
+                  </tr>
+                </thead>
+                <tbody class="table-row">
+                </tbody>
+              </table>
+              <button type="submit" class="btn btn-primary" name="<?php echo isset($_GET['edit']) ? 'edit' : 'add' ?>">
+                <?php echo isset($_GET['edit']) ? 'Atur' : 'Tambah' ?>
+              </button>
             </form>
           </fieldset>
         </div>
