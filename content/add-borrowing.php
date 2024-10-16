@@ -52,7 +52,7 @@ if (isset($_POST['edit'])) {
   };
 };
 
-$queryCategory = mysqli_query($connection, "SELECT * FROM members");
+$queryBook = mysqli_query($connection, "SELECT * FROM books");
 
 ?>
 
@@ -76,6 +76,18 @@ $queryCategory = mysqli_query($connection, "SELECT * FROM members");
                   <div class="mb-3">
                     <label for="" class="form-label">Tanggal Peminjaman</label>
                     <input type="date" class="form-control" name="borrowing_date" value="">
+                  </div>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Nama Buku</label>
+                    <select name="" id="id-book" class="form-control">
+                      <option value="">Pilih Buku</option>
+                      <!-- ambil data buku dari table buku -->
+                      <?php while ($rowBook = mysqli_fetch_assoc($queryBook)) : ?>
+                      <option value="<?php echo $rowBook['id'] ?>">
+                        <?php echo $rowBook['title'] ?>
+                      </option>
+                      <?php endwhile ?>
+                    </select>
                   </div>
                 </div>
                 <div class="col-sm-4">

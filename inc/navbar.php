@@ -31,6 +31,9 @@
           <li class="nav-item">
             <a class="nav-link" href="?pg=borrowing">Peminjaman</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="?pg=member">Anggota</a>
+          </li>
         </ul>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
