@@ -1,17 +1,25 @@
 <?php
 // include "controller/add-borrowing-control.php";
 // BUAT ADD BORROWING
-if (isset($_POST['add'])) {
-  $title = $_POST['title'];
-  $publisher = $_POST['publisher'];
-  $year_of_publication = $_POST['year_of_publication'];
-  $author = $_POST['author'];
-  $id_category = $_POST['id_category'];
+if (isset($_POST['save'])) {
+  $borrowing_number = $_POST['borrowing_number'];
+  $id_member = $_POST['id_member'];
+  $borrowing_date = $_POST['borrowing_date'];
+  $return_date = $_POST['return_date'];
+  $id_book = $_POST['id_book'];
 
   $queryInsert = mysqli_query(
       $connection,
-      "INSERT INTO borrowing (id_category, title, publisher, year_of_publication, author) VALUES ('$id_category', '$title', '$publisher', '$year_of_publication', '$author')"
+      "INSERT INTO borrowing (borrowing_number, id_member, borrowing_date, return_date) VALUES ('$borrowing_number', '$id_member', '$borrowing_date', '$return_date')"
   );
+
+  $id_borrowing = mysqli_insert_id($connection);
+  
+  foreach ($id_book as $key => $book) { 
+    $id_book = $_POST['id_book'][$key];
+    $insertDetail = mysqli_query($connection, "INSERT INTO borrowing_details (id_borrowing, id_book) VALUES ('$id_borrowing', '$id_book')");
+  };
+
   header("location: ?pg=borrowing&add=success");
 };
 
@@ -28,24 +36,24 @@ if (isset($_GET['delete'])) {
 
 // include "controller/edit-borrowing-control.php";
 // BUAT EDIT BORROWING
-if (isset($_GET['edit'])) {
-  $id = $_GET['edit'];
-  $queryEdit = mysqli_query($connection, "SELECT * FROM borrowing WHERE id='$id'");
-  $rowEdit = mysqli_fetch_assoc($queryEdit);
+if (isset($_GET['detail'])) {
+  $id = $_GET['detail'];
+  $queryDetail = mysqli_query($connection, "SELECT members.member_name, borrowing.* FROM borrowing LEFT JOIN members ON members.id = borrowing.id_member WHERE borrowing.id='$id'");
+  $rowDetail = mysqli_fetch_assoc($queryDetail);
 };
 
-if (isset($_POST['edit'])) {
-  $title = $_POST['title'];
-  $publisher = $_POST['publisher'];
-  $year_of_publication = $_POST['year_of_publication'];
-  $author = $_POST['author'];
-  $id_category = $_POST['id_category'];
+if (isset($_POST['detail'])) {
+  $borrowing_number = $_POST['borrowing_number'];
+  $id_member = $_POST['id_member'];
+  $borrowing_date = $_POST['borrowing_date'];
+  $return_date = $_POST['return_date'];
+  $id_book = $_POST['id_book'];
 
   $update = mysqli_query(
       $connection,
       "UPDATE borrowing SET title='$title', publisher='$publisher', year_of_publication='$year_of_publication', author='$author' WHERE id='$id'"
   );
-  header("location: ?pg=borrowing&edit=success");
+  header("location: ?pg=borrowing");
 
   if (!$update) {
       echo "Update gagal";
@@ -73,23 +81,26 @@ $borrowCode = "PJM/" . date('dmy') . sprintf("%03s", $id_borrowing);
           <h3 class="card-title text-center">
           </h3>
           <fieldset class="border border-black border-2 p-3 shadow">
-            <legend class="float-none w-auto px-3"><?php echo isset($_GET['edit']) ? 'Atur' : 'Tambah' ?> Peminjaman
+            <legend class="float-none w-auto px-3"><?php echo isset($_GET['detail']) ? 'Detail' : 'Tambah' ?> Peminjaman
             </legend>
             <form action="" method="post">
               <div class="mb-3 row">
                 <div class="col-sm-4">
                   <div class="mb-3">
                     <label for="" class="form-label">No Peminjaman</label>
-                    <input type="text" class="form-control" name="borrowing_number" value="<?php echo $borrowCode ?>"
+                    <input type="text" class="form-control" name="borrowing_number"
+                      value="<?php echo isset($_GET['detail']) ? $rowDetail['borrowing_number'] : $borrowCode ?>"
                       readonly>
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Tanggal Peminjaman</label>
-                    <input type="date" class="form-control" name="borrowing_date" value="">
+                    <input required type="date" class="form-control" name="borrowing_date"
+                      value="<?php echo isset($_GET['detail']) ? $rowDetail['borrowing_date'] : '' ?>"
+                      <?php echo isset($_GET['detail']) ? 'readonly' : '' ?>>
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Nama Buku</label>
-                    <select name="" id="id-book" class="form-control">
+                    <select required name="" id="id_book" class="form-control">
                       <option value="">Pilih Buku</option>
                       <!-- ambil data buku dari table buku -->
                       <?php while ($rowBook = mysqli_fetch_assoc($queryBook)) : ?>
@@ -103,7 +114,8 @@ $borrowCode = "PJM/" . date('dmy') . sprintf("%03s", $id_borrowing);
                 <div class="col-sm-4">
                   <div class="mb-3">
                     <label for="" class="form-label">Nama Aggota</label>
-                    <select name="id_member" id="" class="form-control">
+                    <?php if (!isset($_GET['detail'])) : ?>
+                    <select required name="id_member" id="" class="form-control">
                       <option value="">Pilih Anggota</option>
                       <?php while ($rowMember = mysqli_fetch_assoc($queryMember)) : ?>
                       <option value="<?php echo $rowMember['id'] ?>">
@@ -111,10 +123,15 @@ $borrowCode = "PJM/" . date('dmy') . sprintf("%03s", $id_borrowing);
                       </option>
                       <?php endwhile?>
                     </select>
+                    <?php else : ?>
+                    <input type="text" class="form-control" readonly value="<?php echo $rowDetail['member_name'] ?>">
+                    <?php endif ?>
                   </div>
                   <div class="mb-3">
                     <label for="" class="form-label">Tanggal Pengembalian</label>
-                    <input type="date" class="form-control" name="return_date" value="">
+                    <input required type="date" class="form-control" name="return_date"
+                      value="<?php echo isset($_GET['detail']) ? $rowDetail['return_date'] : '' ?>"
+                      <?php echo isset($_GET['detail']) ? 'readonly' : '' ?>>
                   </div>
                 </div>
               </div>
@@ -123,7 +140,7 @@ $borrowCode = "PJM/" . date('dmy') . sprintf("%03s", $id_borrowing);
                   Tambah Row
                 </button>
               </div>
-              <table id="table-add-borrowing" class="table table-bordered">
+              <table id="table_add_borrowing" class="table table-bordered">
                 <thead>
                   <tr>
                     <th>Judul Buku</th>
@@ -133,9 +150,11 @@ $borrowCode = "PJM/" . date('dmy') . sprintf("%03s", $id_borrowing);
                 <tbody class="table-row">
                 </tbody>
               </table>
-              <button type="submit" class="btn btn-primary" name="<?php echo isset($_GET['edit']) ? 'edit' : 'add' ?>">
-                <?php echo isset($_GET['edit']) ? 'Atur' : 'Tambah' ?>
-              </button>
+              <div class="mt-5">
+                <button type="submit" class="btn btn-primary" name="save">
+                  Simpan
+                </button>
+              </div>
             </form>
           </fieldset>
         </div>
