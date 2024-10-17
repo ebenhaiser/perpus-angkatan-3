@@ -40,24 +40,7 @@ if (isset($_GET['detail'])) {
   $id = $_GET['detail'];
   $queryDetail = mysqli_query($connection, "SELECT members.member_name, borrowing.* FROM borrowing LEFT JOIN members ON members.id = borrowing.id_member WHERE borrowing.id='$id'");
   $rowDetail = mysqli_fetch_assoc($queryDetail);
-};
-
-if (isset($_POST['detail'])) {
-  $borrowing_number = $_POST['borrowing_number'];
-  $id_member = $_POST['id_member'];
-  $borrowing_date = $_POST['borrowing_date'];
-  $return_date = $_POST['return_date'];
-  $id_book = $_POST['id_book'];
-
-  $update = mysqli_query(
-      $connection,
-      "UPDATE borrowing SET title='$title', publisher='$publisher', year_of_publication='$year_of_publication', author='$author' WHERE id='$id'"
-  );
-  header("location: ?pg=borrowing");
-
-  if (!$update) {
-      echo "Update gagal";
-  };
+  $queryDetailBorrow = mysqli_query($connection, "SELECT books.title, borrowing_details.* FROM borrowing_details LEFT JOIN books ON books.id = borrowing_details.id_book WHERE borrowing_details.id_borrowing = '$id'");
 };
 
 $queryBook = mysqli_query($connection, "SELECT * FROM books");
@@ -80,24 +63,31 @@ $borrowCode = "PJM/" . date('dmy') . sprintf("%03s", $id_borrowing);
         <div class="card-body">
           <h3 class="card-title text-center">
           </h3>
-          <fieldset class="border border-black border-2 p-3 shadow">
+          <fieldset class="border border-black border-2 p-3">
             <legend class="float-none w-auto px-3"><?php echo isset($_GET['detail']) ? 'Detail' : 'Tambah' ?> Peminjaman
             </legend>
             <form action="" method="post">
               <div class="mb-3 row">
-                <div class="col-sm-4">
+                <div class="col-sm-6">
+
+                  <!-- Nomor Pinjam -->
                   <div class="mb-3">
                     <label for="" class="form-label">No Peminjaman</label>
                     <input type="text" class="form-control" name="borrowing_number"
                       value="<?php echo isset($_GET['detail']) ? $rowDetail['borrowing_number'] : $borrowCode ?>"
                       readonly>
                   </div>
+
+                  <!-- Tanggal Peminjaman -->
                   <div class="mb-3">
                     <label for="" class="form-label">Tanggal Peminjaman</label>
                     <input required type="date" class="form-control" name="borrowing_date"
                       value="<?php echo isset($_GET['detail']) ? $rowDetail['borrowing_date'] : '' ?>"
                       <?php echo isset($_GET['detail']) ? 'readonly' : '' ?>>
                   </div>
+
+                  <!-- Nama Buku -->
+                  <?php if(empty($_GET['detail'])) : ?>
                   <div class="mb-3">
                     <label for="" class="form-label">Nama Buku</label>
                     <select required name="" id="id_book" class="form-control">
@@ -110,11 +100,15 @@ $borrowCode = "PJM/" . date('dmy') . sprintf("%03s", $id_borrowing);
                       <?php endwhile ?>
                     </select>
                   </div>
+                  <?php endif ?>
                 </div>
-                <div class="col-sm-4">
+
+                <div class="col-sm-6">
+
+                  <!-- Nama Anggota -->
                   <div class="mb-3">
                     <label for="" class="form-label">Nama Aggota</label>
-                    <?php if (!isset($_GET['detail'])) : ?>
+                    <?php if (empty($_GET['detail'])) : ?>
                     <select required name="id_member" id="" class="form-control">
                       <option value="">Pilih Anggota</option>
                       <?php while ($rowMember = mysqli_fetch_assoc($queryMember)) : ?>
@@ -127,6 +121,8 @@ $borrowCode = "PJM/" . date('dmy') . sprintf("%03s", $id_borrowing);
                     <input type="text" class="form-control" readonly value="<?php echo $rowDetail['member_name'] ?>">
                     <?php endif ?>
                   </div>
+
+                  <!-- Tanggal Pengembalian -->
                   <div class="mb-3">
                     <label for="" class="form-label">Tanggal Pengembalian</label>
                     <input required type="date" class="form-control" name="return_date"
@@ -135,11 +131,38 @@ $borrowCode = "PJM/" . date('dmy') . sprintf("%03s", $id_borrowing);
                   </div>
                 </div>
               </div>
+
+              <!-- Tombol Tambah Row -->
+              <?php if(empty($_GET['detail'])) : ?>
               <div align="right" class="mb-3">
                 <button type="button" id="add-row" class="btn btn-primary">
                   Tambah Row
                 </button>
               </div>
+              <?php endif ?>
+
+              <!-- tabel data dari query dengan php -->
+              <?php if (!empty($_GET['detail'])) : ?>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Buku</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php 
+                  $no = 1;
+                  while ($rowDetailBorroring = mysqli_fetch_assoc($queryDetailBorrow)) :?>
+                  <tr>
+                    <td><?php echo $no++ ?></td>
+                    <td><?php echo $rowDetailBorroring['title'] ?></td>
+                  </tr>
+                  <?php endwhile ?>
+                </tbody>
+              </table>
+              <?php else : ?>
+              <!-- ini tabel data dari js -->
               <table id="table_add_borrowing" class="table table-bordered">
                 <thead>
                   <tr>
@@ -150,10 +173,14 @@ $borrowCode = "PJM/" . date('dmy') . sprintf("%03s", $id_borrowing);
                 <tbody class="table-row">
                 </tbody>
               </table>
+
+              <!-- Tombol Simpan -->
               <div class="mt-5">
                 <button type="submit" class="btn btn-primary" name="save">
                   Simpan
                 </button>
+                <?php endif ?>
+
               </div>
             </form>
           </fieldset>
