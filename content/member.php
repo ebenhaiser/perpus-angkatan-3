@@ -4,7 +4,7 @@ $queryMembers = mysqli_query($connection, "SELECT * FROM members ORDER BY id DES
 <div class="mt-5 container">
   <div class="row">
     <div class="col-md-12">
-      <fieldset class="border border-black border-2 p-3">
+      <fieldset class="border border-black border-2 p-3 shadow">
         <legend class="float-none w-auto px-3">Data Anggota</legend>
         <div class="button-action">
           <a href="?pg=add-member" class="btn btn-primary">Tambah</a>

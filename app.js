@@ -9,8 +9,9 @@ addRow.addEventListener("click", function () {
   let settingsCell = newRow.insertCell(1);
   let bookTitle = document.getElementById("id-book");
   bookTitle = bookTitle.options[bookTitle.selectedIndex].text;
-
-  bookTitleCell.innerHTML = bookTitle;
+  let bookId = bookTitle.value;
+  bookTitleCell.innerHTML =
+    bookTitle + "<input type='text' name='id-book[]' value='" + bookId + "'>";
   settingsCell.innerHTML =
     "<button type='button' onclick='deleteRow(this)' class='btn btn-sm btn-danger'>Hapus</button>";
 });
