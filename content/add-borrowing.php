@@ -7,10 +7,11 @@ if (isset($_POST['save'])) {
   $borrowing_date = $_POST['borrowing_date'];
   $return_date = $_POST['return_date'];
   $id_book = $_POST['id_book'];
+  $status = "Di Pinjam";
 
   $queryInsert = mysqli_query(
       $connection,
-      "INSERT INTO borrowing (borrowing_number, id_member, borrowing_date, return_date) VALUES ('$borrowing_number', '$id_member', '$borrowing_date', '$return_date')"
+      "INSERT INTO borrowing (borrowing_number, id_member, borrowing_date, return_date, status) VALUES ('$borrowing_number', '$id_member', '$borrowing_date', '$return_date', '$status')"
   );
 
   $id_borrowing = mysqli_insert_id($connection);

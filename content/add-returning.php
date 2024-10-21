@@ -86,6 +86,10 @@ $queryKodePnjm = mysqli_query($connection, "SELECT * FROM borrowing WHERE status
                         <label for="" class="form-label">Tanggal Peminjaman</label>
                         <input type="text" readonly id="borrowing_date" class="form-control">
                       </div>
+                      <div class="mb-3">
+                        <label for="" class="form-label">Denda</label>
+                        <input type="text" readonly id="charge" class="form-control">
+                      </div>
                     </div>
                     <div class="col-sm-6">
                       <div class="mb-3">

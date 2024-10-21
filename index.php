@@ -39,14 +39,15 @@ include 'connection.php';
   </div>
 
   <script src="assets/dist/js/jquery-3.7.1.min.js"></script>
+  <script src="assets/dist/js/moment.js"></script>
   <!-- <script src="assets/dist/js/bootstrap.min.js"></script> -->
   <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
   <script src="app.js"></script>
 
   <script>
   $("#id_borrowing").change(function() {
-    let borrowing_number = $(this).find('option:selected').val();
-    let tbody = $('tbody');
+    let borrowing_number = $(this).find("option:selected").val();
+    let tbody = $("tbody");
     let newRow = "";
     console.log(borrowing_number);
     $.ajax({
@@ -54,20 +55,29 @@ include 'connection.php';
       type: "get",
       dataType: "json",
       success: function(res) {
-        $('#borrowing_number').val(res.data.borrowing_number);
-        $('#borrowing_date').val(res.data.borrowing_date);
-        $('#return_date').val(res.data.return_date);
-        $('#member_name').val(res.data.member_name);
+        $("#borrowing_number").val(res.data.borrowing_number);
+        $("#borrowing_date").val(res.data.borrowing_date);
+        $("#return_date").val(res.data.return_date);
+        $("#member_name").val(res.data.member_name);
+
+        let return_date = new moment(data.data.return_date);
+        let returned_date = new moment("2024-10-21");
+        let selisih = returned_date.diff(return_date, "days");
+
+        let chargeFee = 1000000;
+        let totalCharge = selisih * chargeFee;
+        $("#charge").val(totalCharge);
 
         // console.log(res);
         $.each(res.borrowing_details, function(key, val) {
-          newRow = "<tr>";
-          newRow += "<td>" + val.title + "</td>"
+          newRow += "<tr>";
+          newRow += "<td>" + val.title + "</td>";
           newRow += "</tr>";
         });
 
         tbody.html(newRow);
-      };
+        console.log(res);
+      },
     });
   });
   </script>

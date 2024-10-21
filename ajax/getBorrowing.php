@@ -21,7 +21,7 @@ if (isset($_GET['borrowing_number'])) {
     $response = [
       'data' => $data, 
       'message' => 'Fetch success',
-      'borrowing_detail' => $dataDetail
+      'borrowing_details' => $dataDetail
     ];
     echo json_encode($response);
     // json_decode
