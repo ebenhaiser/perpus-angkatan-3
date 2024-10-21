@@ -1,13 +1,13 @@
 <?php
 $queryBorrowing = mysqli_query($connection, "SELECT members.member_name, borrowing.* 
-FROM borrowing LEFT JOIN members ON members.id = borrowing.id_member ORDER BY id DESC");
+FROM borrowing LEFT JOIN members ON members.id = borrowing.id_member WHERE deleted_at = 0 ORDER BY id DESC");
 ?>
 <div class="mt-5 container">
   <div class="row">
     <div class="col-md-12">
       <fieldset class="border border-black border-2 p-3 shadow">
         <legend class="float-none w-auto px-3">Data Peminjaman</legend>
-        <div class="button-action">
+        <div align="right" class="button-action">
           <a href="?pg=add-borrowing" class="btn btn-primary">Tambah</a>
           <!-- <a href="" class="btn btn-warning">Recycle</a> -->
         </div>

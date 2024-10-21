@@ -30,7 +30,7 @@ if (isset($_POST['save'])) {
 if (isset($_GET['delete'])) {
   $id = $_GET['delete'];
 
-  $queryDelete = mysqli_query($connection, "DELETE FROM borrowing WHERE id='$id'");
+  $queryDelete = mysqli_query($connection, "UPDATE borrowing SET deleted_at = 1 WHERE id='$id'");
   header("location: ?pg=borrowing&delete=success");
 };
 

@@ -1,11 +1,6 @@
 <?php
 $query = mysqli_query($connection, "SELECT borrowing.borrowing_number, returning_books.* FROM returning_books 
-LEFT JOIN borrowing ON borrowing.id = returning_books.id_borrowing ORDER BY returning_books.id DESC");
-
-if (!$query){
-  echo "GOBLOKK";
-  die;
-}
+LEFT JOIN borrowing ON borrowing.id = returning_books.id_borrowing ORDER BY id DESC");
 
 ?>
 <div class="container">
@@ -29,13 +24,13 @@ if (!$query){
             </thead>
             <tbody>
               <?php
-                            $no = 1;
-                            while ($row = mysqli_fetch_assoc($query)):
-                            ?>
+              $no = 1;
+              while ($row = mysqli_fetch_assoc($query)):
+              ?>
               <tr>
                 <td><?php echo $no++ ?></td>
                 <td><?php echo $row['borrowing_number'] ?></td>
-                <td><?php echo date('status') ?></td>
+                <td><?php echo $row['status'] ?></td>
                 <td><?php echo $row['charge'] ?></td>
                 <td>
                   <a id="edit-user" data-id="<?php echo $row['id'] ?>"

@@ -60,12 +60,20 @@ include 'connection.php';
         $("#return_date").val(res.data.return_date);
         $("#member_name").val(res.data.member_name);
 
-        let return_date = new moment(data.data.return_date);
-        let returned_date = new moment("2024-10-21");
-        let selisih = returned_date.diff(return_date, "days");
+        let return_date = new moment(res.data.return_date);
 
-        let chargeFee = 1000000;
-        let totalCharge = selisih * chargeFee;
+        let currentDate = new Date().toJSON().slice(0, 10);
+        let returned_date = new moment(currentDate);
+
+        let dayDifference = returned_date.diff(return_date, "days");
+
+        let chargeFee = 500;
+        let totalCharge = dayDifference * chargeFee;
+
+        if (totalCharge <= 0) {
+          totalCharge = 0;
+        }
+
         $("#charge").val(totalCharge);
 
         // console.log(res);

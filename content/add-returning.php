@@ -1,26 +1,25 @@
 <?php
-if (isset($_POST['simpan'])) {
-    $borrowing_number   = $_POST['borrowing_number'];
-    $id_member    = $_POST['id_member'];
-    $borrowing_date = $_POST['borrowing_date'];
-    $return_date   = $_POST['return_date'];
-    $id_book   = $_POST['id_book'];
-    $status = "Di Pinjam";
+if (isset($_POST['save'])) {
+    $id_borrowing = $_POST['id_borrowing'];
+    $queryBorrowing = mysqli_query($connection, "SELECT id, borrowing_number FROM borrowing WHERE borrowing_number='$id_borrowing'");
+    $rowBorrowing = mysqli_fetch_assoc($queryBorrowing);
+    $id_borrowing = $rowBorrowing['id'];
+    $charge = $_POST['charge'];
+    if($charge == 0){
+      $status = 0;
+    } else {
+      $status = 1;
+    }
 
     // sql = structur query language / DML = data manipulation language
     // select, insert, update, delete
-    $insert = mysqli_query($connection, "INSERT INTO borrowing 
-    (borrowing_number, id_member, borrowing_date, return_date, status) VALUES 
-    ('$borrowing_number','$id_member','$borrowing_date','$return_date', '$status')");
-    $id_borrowing = mysqli_insert_id($connection);
+    $insert = mysqli_query($connection, "INSERT INTO returning_books 
+    (id_borrowing, status, charge) VALUES 
+    ('$id_borrowing','$status','$charge')");
 
-    foreach ($id_book as $key => $buku) {
-        $id_book = $_POST['id_book'][$key];
+    $updateBorrowing = mysqli_query($connection, "UPDATE borrowing SET status = 'Dikembalikan' WHERE id='$id_borrowing'");
 
-        $insertDetail = mysqli_query($connection, "INSERT INTO borrowing_details
-        (id_borrowing, id_book) VALUES ('$id_borrowing','$id_book')");
-    }
-    header("location:?pg=borrowing&delete=success");
+    header("location:?pg=returning&save=success");
 }
 
 $id = isset($_GET['detail']) ? $_GET['detail'] : '';
@@ -36,8 +35,8 @@ $queryDetailPinjam = mysqli_query($connection, "SELECT books.title, borrowing_de
 
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
-    $delete = mysqli_query($connection, "UPDATE borrowing SET deleted_at = 1 WHERE id='$id'");
-    header("location:?pg=borrowing&delete=success");
+    $delete = mysqli_query($connection, "DELETE FROM returning_books WHERE id='$id'");
+    header("location:?pg=returning&delete=success");
 }
 
 $queryBuku = mysqli_query($connection, "SELECT * FROM books");
@@ -88,7 +87,7 @@ $queryKodePnjm = mysqli_query($connection, "SELECT * FROM borrowing WHERE status
                       </div>
                       <div class="mb-3">
                         <label for="" class="form-label">Denda</label>
-                        <input type="text" readonly id="charge" class="form-control">
+                        <input type="text" readonly name="charge" id="charge" class="form-control">
                       </div>
                     </div>
                     <div class="col-sm-6">
@@ -120,7 +119,7 @@ $queryKodePnjm = mysqli_query($connection, "SELECT * FROM borrowing WHERE status
             </tbody>
           </table>
           <div class="mt-3">
-            <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
+            <button type="submit" name="save" class="btn btn-primary">Simpan</button>
           </div>
         </form>
       </fieldset>
