@@ -20,6 +20,9 @@
             <a class="nav-link" href="?pg=user">Akun</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="?pg=member">Anggota</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="?pg=level">Level</a>
           </li>
           <li class="nav-item">
@@ -32,7 +35,7 @@
             <a class="nav-link" href="?pg=borrowing">Peminjaman</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="?pg=member">Anggota</a>
+            <a class="nav-link" href="?pg=returning"> Pengembalian</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
